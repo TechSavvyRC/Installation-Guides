@@ -1,5 +1,5 @@
 # Table of Contents
-<p>&nbsp;</p>
+
 1. [Introduction](#1-introduction)
 2. [Pros & Cons Analysis](#2-pros--cons-analysis)
 3. [Prerequisites](#3-prerequisites)
