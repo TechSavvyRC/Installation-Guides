@@ -26,7 +26,6 @@
    4. [Test Read-Only Mount](#74-test-read-only-mount)
 
 ---
-
 ## 1. Introduction
 
 Windows Subsystem for Linux (WSL) enables developers and system administrators to run a full Linux environment directly within Windows — without the need for dual-booting or using a VM. WSL 2, the latest version, utilizes a lightweight virtual machine with a real Linux kernel, offering significant performance and compatibility improvements over WSL 1.
@@ -51,7 +50,6 @@ By the end of this guide, you will have:
 This setup is ideal for power users, developers, or anyone who wants a robust and professional-grade WSL environment.
 
 ---
-
 ## 2. Pros & Cons Analysis
 
 ### 2.1 Advantages
@@ -60,7 +58,6 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Resource isolation:** Large data sets no longer bloat your system drive.
 - **Near‑native performance:** ext4 VHDX on a dedicated drive approaches native I/O speeds under WSL 2.
 - **Clean separation:** The ext4.vhdx is by default inaccessible to Windows tools, reducing cross‑contamination risk.
-
 <p>&nbsp;</p>
 
 ### 2.2 Disadvantages
