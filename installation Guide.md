@@ -98,8 +98,7 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
   - **-Path "E:\appData\...":** Defines the full path where the new directory will be created.
   - **-Force:** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
 - **Expected output:** The successful creation of the specified directory structure on the **E:** drive.
-<p>&nbsp;</p>
-
+---
 ### 4.2 Enable Windows Features
 Still in an administrator PowerShell session, run the following commands to enable the WSL and Virtual Machine Platform features.
 ```powershell
@@ -117,8 +116,7 @@ Restart-Computer -Force
   - **/all:** Enables all parent and dependent features.
   - **/norestart:** Prevents an automatic reboot after the command completes.
 - **Expected output:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
-<p>&nbsp;</p>
-
+---
 ### 4.3 Install WSL & Default Distro(Ubuntu)
 After rebooting, open a new PowerShell window and run the following command to install WSL with the default Ubuntu distribution.
 ```powershell
@@ -138,8 +136,7 @@ Downloading: Ubuntu
 Installing: Ubuntu
 Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
 ```
-<p>&nbsp;</p>
-
+---
 ### 4.4 Export the Installed Distro
 Before unregistering the default installation, shut down all running WSL instances and export the Ubuntu distribution to a TAR archive on your **E:** drive.
 ```powershell
@@ -156,8 +153,7 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
   - **--export <DistributionName> <ExportFilePath>:** Specifies the distribution to export and the path for the resulting TAR file.
   - **Test-Path <Path>:** Checks if a file or directory exists at the given path.
 - **Expected output:** If successful, ***Test-Path*** will return **True**.
-<p>&nbsp;</p>
-
+---
 ### 4.5 Unregister the Original Distro
 Now, unregister the default Ubuntu installation. This removes the registration but leaves the exported TAR file intact.
 ```powershell
@@ -167,8 +163,7 @@ wsl --unregister Ubuntu
 - **Breakdown of parameters and arguments:**
   - **--unregister <DistributionName>:** Specifies the distribution to unregister.
 - **Expected output:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
-<p>&nbsp;</p>
-
+---
 ### 4.6 Import to Custom Location on E
 Import the exported TAR archive to the custom location you created on the E: drive. This command registers a new WSL instance pointing to the specified directory.
 ```powershell
