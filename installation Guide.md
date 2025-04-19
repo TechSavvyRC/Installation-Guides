@@ -24,6 +24,7 @@
    2. [Launch WSL](#72-launch-wsl)
    3. [Verify Home Directory](#73-verify-home-directory)
    4. [Test Read-Only Mount](#74-test-read-only-mount)
+<p>&nbsp;</p>
 
 ---
 ## 1. Introduction
@@ -67,6 +68,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **I/O caveats:** DrvFs mounts on non‑system drives can be slower under heavy load.
 - **Limited Windows scanning:** Antivirus or Windows tooling won’t inspect ext4.vhdx.
 - **Portability:** Custom drive mappings may not transfer seamlessly to other machines.
+<p>&nbsp;</p>
 
 ---
 
@@ -75,7 +77,6 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Admin Access:** PowerShell **as Administrator**
 - **Drive Space:** ≥ 10 GB free on **E:** (or your chosen drive)
 - **Internet:** Required for kernel and distro downloads
-
 <p>&nbsp;</p>
 
 ---
@@ -98,7 +99,6 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
   - **-Path "E:\appData\...":** Defines the full path where the new directory will be created.
   - **-Force:** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
 - **Expected output or result:** The successful creation of the specified directory structure on the **E:** drive.
-
 <p>&nbsp;</p>
 
 ### 4.2 Enable Windows Features
@@ -118,7 +118,6 @@ Restart-Computer -Force
   - **/all:** Enables all parent and dependent features.
   - **/norestart:** Prevents an automatic reboot after the command completes.
 - **Expected output or result:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
-
 <p>&nbsp;</p>
 
 ### 4.3 Install WSL & Default Distro(Ubuntu)
@@ -140,7 +139,6 @@ Downloading: Ubuntu
 Installing: Ubuntu
 Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
 ```
-
 <p>&nbsp;</p>
 
 ### 4.4 Export the Installed Distro
@@ -159,7 +157,6 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
   - **--export <DistributionName> <ExportFilePath>:** Specifies the distribution to export and the path for the resulting TAR file.
   - **Test-Path <Path>:** Checks if a file or directory exists at the given path.
 - **Expected output or result:** If successful, ***Test-Path*** will return **True**.
-
 <p>&nbsp;</p>
 
 ### 4.5 Unregister the Original Distro
@@ -171,7 +168,6 @@ wsl --unregister Ubuntu
 - **Breakdown of parameters and arguments:**
   - **--unregister <DistributionName>:** Specifies the distribution to unregister.
 - **Expected output or result:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
-
 <p>&nbsp;</p>
 
 ### 4.6 Import to Custom Location on E
@@ -190,6 +186,7 @@ Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
   - **-Path:** Specifies the path to the item to be removed.
   - **-Force:** Deletes the item without prompting.
 - **Expected output or result:** Successful registration of the ***"Ubuntu"*** distribution at the new location.
+<p>&nbsp;</p>
 
 ---
 
