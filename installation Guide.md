@@ -26,7 +26,6 @@
    4. [Test Read-Only Mount](#74-test-read-only-mount)
 
 ---
-<p>&nbsp;</p>
 
 ## 1. Introduction
 
@@ -52,7 +51,6 @@ By the end of this guide, you will have:
 This setup is ideal for power users, developers, or anyone who wants a robust and professional-grade WSL environment.
 
 ---
-<p>&nbsp;</p>
 
 ## 2. Pros & Cons Analysis
 
@@ -62,7 +60,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Resource isolation:** Large data sets no longer bloat your system drive.
 - **Near‑native performance:** ext4 VHDX on a dedicated drive approaches native I/O speeds under WSL 2.
 - **Clean separation:** The ext4.vhdx is by default inaccessible to Windows tools, reducing cross‑contamination risk.
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 2.2 Disadvantages
@@ -73,14 +71,13 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Portability:** Custom drive mappings may not transfer seamlessly to other machines.
 
 ---
-<p>&nbsp;</p>
 
 ## 3. Prerequisites
 - **Windows Version:** Windows 10 1903+ or Windows 11
 - **Admin Access:** PowerShell **as Administrator**
 - **Drive Space:** ≥ 10 GB free on **E:** (or your chosen drive)
 - **Internet:** Required for kernel and distro downloads
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ---
@@ -88,7 +85,6 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 > ⚠️ **Important:** All commands in this guide must be executed in **PowerShell running as Administrator** ⚠️
 
 ---
-<p>&nbsp;</p>
 
 ## 4. Installation Guide
 
@@ -104,7 +100,7 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
   - **-Path "E:\appData\...":** Defines the full path where the new directory will be created.
   - **-Force:** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
 - **Expected output or result:** The successful creation of the specified directory structure on the **E:** drive.
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 4.2 Enable Windows Features
@@ -124,7 +120,7 @@ Restart-Computer -Force
   - **/all:** Enables all parent and dependent features.
   - **/norestart:** Prevents an automatic reboot after the command completes.
 - **Expected output or result:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 4.3 Install WSL & Default Distro(Ubuntu)
@@ -146,7 +142,7 @@ Downloading: Ubuntu
 Installing: Ubuntu
 Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
 ```
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 4.4 Export the Installed Distro
@@ -165,7 +161,7 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
   - **--export <DistributionName> <ExportFilePath>:** Specifies the distribution to export and the path for the resulting TAR file.
   - **Test-Path <Path>:** Checks if a file or directory exists at the given path.
 - **Expected output or result:** If successful, ***Test-Path*** will return **True**.
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 4.5 Unregister the Original Distro
@@ -177,7 +173,7 @@ wsl --unregister Ubuntu
 - **Breakdown of parameters and arguments:**
   - **--unregister <DistributionName>:** Specifies the distribution to unregister.
 - **Expected output or result:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 4.6 Import to Custom Location on E
@@ -198,7 +194,6 @@ Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
 - **Expected output or result:** Successful registration of the ***"Ubuntu"*** distribution at the new location.
 
 ---
-<p>&nbsp;</p>
 
 ## 5. Verification Steps
 After completing the installation and import process, it's crucial to verify that WSL is correctly set up and functioning as expected in the new location.
@@ -214,7 +209,7 @@ wsl -l -v
   - **-l:** Lists distributions.
   - **-v:** Displays version information.
 - **Expected output or result:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 5.2 Confirm the BasePath registry entry
@@ -230,7 +225,7 @@ This command retrieves the installation path from the Windows Registry to ensure
   - **ForEach-Object { Get-ItemProperty $_.PSPath }:** For each distribution, gets its properties, including the path.
   - **Select-Object DistributionName, BasePath:** Selects and displays the distribution name and its base path.
 - **Expected output or result:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
-<p>&nbsp;</p>
+
 <p>&nbsp;</p>
 
 ### 5.3 Virtual Hard Disk File
@@ -245,7 +240,6 @@ Test-Path "E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx"
 - **Expected output or result:** ***"True***" if the file exists, ***"False"*** otherwise.
 
 ---
-<p>&nbsp;</p>
 
 ## 6. Post‑Installation Configuration
 After verifying the installation, we'll proceed to configure the Ubuntu environment for enhanced security, control, and usability.
@@ -267,8 +261,9 @@ usermod -aG sudo devuser
   - **usermod:** Modifies a user account.
   - **-aG sudo:** Adds the user to the ***"sudo"*** group.
 - **Expected output or result:** A root user shell within the Ubuntu distribution. A new user account named ***"devuser"*** that can execute commands with sudo.
+
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+
 ### 6.2 Shell Prompt & Startup
 Ensure each shell session starts in the user’s home and uses a clean prompt. These commands modify the ***.bashrc*** files to ensure the terminal starts in the user's home directory.
 ```bash
@@ -279,8 +274,9 @@ cd ~
   - **echo "cd ~" >> /root/.bashrc:** Adds the command ***cd ~*** to the end of the ***/root/.bashrc*** file.
   - **echo "cd ~" >> /home/devuser/.bashrc:** Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
 - **Expected output or result:** The terminal will start in the home directory for the respective user.
+
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+
 ### 6.3 Drive Mount Control
 This command edits the wsl.conf file to apply specific WSL settings, including enabling systemd, disabling automatic drive mounting, and setting the default user.
 ```bash
@@ -310,8 +306,9 @@ default = devuser         # set your non-root default user
     - **[interop] enabled = false:** Disables launching Windows binaries from WSL.
     - **[interop] appendWindowsPath = false:** Prevents Windows paths from being added to the WSL environment's PATH variable.
     - **[user] default = devuser:** Sets the default user to ***"devuser"***.
+
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+
 ### 6.4 Mount C Drive Read-only
 To enhance security and prevent accidental modification of the Windows system drive, this command mounts it in read-only mode. If you only want to mount certain drives or mount them read‑only, disable automount globally, then in ***/etc/fstab*** add entries as mentioned below.
 ```bash
@@ -329,7 +326,7 @@ C:  /mnt/c  drvfs  defaults,ro  0  0
 - **Expected output or result:** The ***C:*** drive mounted as ***read-only*** in WSL.
 
 ---
-<p>&nbsp;</p>
+
 ## 7. Final Verification
 Finally, after configuring the Ubuntu environment, we need to restart WSL and verify that all the changes have been applied correctly.
 
@@ -345,8 +342,9 @@ wsl --shutdown
   - **wsl:** The WSL command-line tool.
   - **--shutdown:** Shuts down WSL.
 - **Expected output or result:** All WSL instances are terminated.
+
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+
 ### 7.2 Launch WSL
 This command launches the Ubuntu distribution, which should now log in as the default user, as configured in ***/etc/wsl.conf***.
 ```bash
@@ -358,8 +356,9 @@ wsl -d Ubuntu
   - **wsl:** The WSL command-line tool.
   - **-d Ubuntu:** Specifies the distribution to launch.
 - **Expected output or result:** The Ubuntu distribution starts, and you are logged in as ***"devuser"***.
+
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+
 ### 7.3 Verify Home Directory
 This command ensures that the terminal starts in the user's home directory
 ```bash
@@ -377,8 +376,9 @@ source /home/devuser/.bashrc
   - **echo "cd ~" >> /home/devuser/.bashrc:**  Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
   - **source /home/devuser/.bashrc:** Reloads the ***/home/devuser/.bashrc*** file.
 - **Expected output or result:**  The terminal will start in the home directory for the respective user.
+
 <p>&nbsp;</p>
-<p>&nbsp;</p>
+
 ### 7.4 Test Read-Only Mount
 Finally, this command attempts to create a file on the ***C:*** drive to verify that the read-only mount configuration was successful.
 ```bash
