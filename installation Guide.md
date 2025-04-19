@@ -60,9 +60,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Resource isolation:** Large data sets no longer bloat your system drive.
 - **Near‑native performance:** ext4 VHDX on a dedicated drive approaches native I/O speeds under WSL 2.
 - **Clean separation:** The ext4.vhdx is by default inaccessible to Windows tools, reducing cross‑contamination risk.
-____________________________________________________________________________________________________________________________________________________________________________________________________________________
-<p>&nbsp;</p>
-
+---
 ### 2.2 Disadvantages
 - **Setup complexity:** Multiple PowerShell and Linux commands increase the learning curve.
 - **Maintenance overhead:** Major WSL or distro updates may require re‑export/import or config tweaks.
