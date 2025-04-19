@@ -1,10 +1,10 @@
 # System‑Drive Isolation for WSL: Professional Setup Guide
 
 <details>
-<summary>📑 Table of Contents</summary>
+##📑 Table of Contents
 
-1. [Introduction](#1.-introduction)  
-2. [Pros & Cons Analysis](#pros--cons-analysis)  
+1. [Introduction](#1-introduction)  
+2. [Pros & Cons Analysis](#2-pros--cons-analysis)  
 3. [Prerequisites](#prerequisites)  
 4. [Step‑by‑Step Setup Guide](#step-by-step-setup-guide)  
    1. [Folder Preparation](#folder-preparation)  
