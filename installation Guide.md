@@ -27,6 +27,7 @@
 
 ---
 <p>&nbsp;</p>
+
 ## 1. Introduction
 
 Windows Subsystem for Linux (WSL) enables developers and system administrators to run a full Linux environment directly within Windows — without the need for dual-booting or using a VM. WSL 2, the latest version, utilizes a lightweight virtual machine with a real Linux kernel, offering significant performance and compatibility improvements over WSL 1.
