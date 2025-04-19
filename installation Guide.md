@@ -48,6 +48,7 @@ By the end of this guide, you will have:
 - Configured a well-organized directory structure for long-term use and system protection
 
 This setup is ideal for power users, developers, or anyone who wants a robust and professional-grade WSL environment.
+<p>&nbsp;</p>
 
 ---
 ## 2. Pros & Cons Analysis
