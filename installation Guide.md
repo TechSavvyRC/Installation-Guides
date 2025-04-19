@@ -198,8 +198,7 @@ wsl -l -v
   - **-l:** Lists distributions.
   - **-v:** Displays version information.
 - **Expected output:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
-<p>&nbsp;</p>
-
+---
 ### 5.2 Confirm the BasePath registry entry
 This command retrieves the installation path from the Windows Registry to ensure it points to the new location.
 ```powershell
@@ -213,8 +212,7 @@ This command retrieves the installation path from the Windows Registry to ensure
   - **ForEach-Object { Get-ItemProperty $_.PSPath }:** For each distribution, gets its properties, including the path.
   - **Select-Object DistributionName, BasePath:** Selects and displays the distribution name and its base path.
 - **Expected output:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
-<p>&nbsp;</p>
-
+---
 ### 5.3 Virtual Hard Disk File
 This command checks for the existence of the virtual hard disk file in the new location, confirming that the distribution's files are in the correct place.
 ```bash
@@ -249,8 +247,7 @@ usermod -aG sudo devuser
   - **usermod:** Modifies a user account.
   - **-aG sudo:** Adds the user to the ***"sudo"*** group.
 - **Expected output:** A root user shell within the Ubuntu distribution. A new user account named ***"devuser"*** that can execute commands with sudo.
-<p>&nbsp;</p>
-
+---
 ### 6.2 Shell Prompt & Startup
 Ensure each shell session starts in the user’s home and uses a clean prompt. These commands modify the ***.bashrc*** files to ensure the terminal starts in the user's home directory.
 ```bash
@@ -261,8 +258,7 @@ cd ~
   - **echo "cd ~" >> /root/.bashrc:** Adds the command ***cd ~*** to the end of the ***/root/.bashrc*** file.
   - **echo "cd ~" >> /home/devuser/.bashrc:** Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
 - **Expected output:** The terminal will start in the home directory for the respective user.
-<p>&nbsp;</p>
-
+---
 ### 6.3 Drive Mount Control
 This command edits the wsl.conf file to apply specific WSL settings, including enabling systemd, disabling automatic drive mounting, and setting the default user.
 ```bash
@@ -292,8 +288,7 @@ default = devuser         # set your non-root default user
     - **[interop] enabled = false:** Disables launching Windows binaries from WSL.
     - **[interop] appendWindowsPath = false:** Prevents Windows paths from being added to the WSL environment's PATH variable.
     - **[user] default = devuser:** Sets the default user to ***"devuser"***.
-<p>&nbsp;</p>
-
+---
 ### 6.4 Mount C Drive Read-only
 To enhance security and prevent accidental modification of the Windows system drive, this command mounts it in read-only mode. If you only want to mount certain drives or mount them read‑only, disable automount globally, then in ***/etc/fstab*** add entries as mentioned below.
 ```bash
@@ -328,8 +323,7 @@ wsl --shutdown
   - **wsl:** The WSL command-line tool.
   - **--shutdown:** Shuts down WSL.
 - **Expected output:** All WSL instances are terminated.
-<p>&nbsp;</p>
-
+---
 ### 7.2 Launch WSL
 This command launches the Ubuntu distribution, which should now log in as the default user, as configured in ***/etc/wsl.conf***.
 ```bash
@@ -341,8 +335,7 @@ wsl -d Ubuntu
   - **wsl:** The WSL command-line tool.
   - **-d Ubuntu:** Specifies the distribution to launch.
 - **Expected output:** The Ubuntu distribution starts, and you are logged in as ***"devuser"***.
-<p>&nbsp;</p>
-
+---
 ### 7.3 Verify Home Directory
 This command ensures that the terminal starts in the user's home directory
 ```bash
@@ -360,8 +353,7 @@ source /home/devuser/.bashrc
   - **echo "cd ~" >> /home/devuser/.bashrc:**  Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
   - **source /home/devuser/.bashrc:** Reloads the ***/home/devuser/.bashrc*** file.
 - **Expected output:**  The terminal will start in the home directory for the respective user.
-<p>&nbsp;</p>
-
+---
 ### 7.4 Test Read-Only Mount
 Finally, this command attempts to create a file on the ***C:*** drive to verify that the read-only mount configuration was successful.
 ```bash
