@@ -204,7 +204,6 @@ wsl -l -v
   - **-l:** Lists distributions.
   - **-v:** Displays version information.
 - **Expected output or result:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
-
 <p>&nbsp;</p>
 
 ### 5.2 Confirm the BasePath registry entry
@@ -220,7 +219,6 @@ This command retrieves the installation path from the Windows Registry to ensure
   - **ForEach-Object { Get-ItemProperty $_.PSPath }:** For each distribution, gets its properties, including the path.
   - **Select-Object DistributionName, BasePath:** Selects and displays the distribution name and its base path.
 - **Expected output or result:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
-
 <p>&nbsp;</p>
 
 ### 5.3 Virtual Hard Disk File
@@ -233,6 +231,7 @@ Test-Path "E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx"
   - **Test-Path:** PowerShell cmdlet to check if a file or directory exists.
   - **"E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx":** The path to the virtual hard disk file.
 - **Expected output or result:** ***"True***" if the file exists, ***"False"*** otherwise.
+<p>&nbsp;</p>
 
 ---
 
@@ -256,7 +255,6 @@ usermod -aG sudo devuser
   - **usermod:** Modifies a user account.
   - **-aG sudo:** Adds the user to the ***"sudo"*** group.
 - **Expected output or result:** A root user shell within the Ubuntu distribution. A new user account named ***"devuser"*** that can execute commands with sudo.
-
 <p>&nbsp;</p>
 
 ### 6.2 Shell Prompt & Startup
@@ -269,7 +267,6 @@ cd ~
   - **echo "cd ~" >> /root/.bashrc:** Adds the command ***cd ~*** to the end of the ***/root/.bashrc*** file.
   - **echo "cd ~" >> /home/devuser/.bashrc:** Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
 - **Expected output or result:** The terminal will start in the home directory for the respective user.
-
 <p>&nbsp;</p>
 
 ### 6.3 Drive Mount Control
@@ -301,7 +298,6 @@ default = devuser         # set your non-root default user
     - **[interop] enabled = false:** Disables launching Windows binaries from WSL.
     - **[interop] appendWindowsPath = false:** Prevents Windows paths from being added to the WSL environment's PATH variable.
     - **[user] default = devuser:** Sets the default user to ***"devuser"***.
-
 <p>&nbsp;</p>
 
 ### 6.4 Mount C Drive Read-only
@@ -319,6 +315,7 @@ C:  /mnt/c  drvfs  defaults,ro  0  0
     - **drvfs:** The file system type.
     - **defaults,ro:** Mount options, including read-only.
 - **Expected output or result:** The ***C:*** drive mounted as ***read-only*** in WSL.
+<p>&nbsp;</p>
 
 ---
 
@@ -337,7 +334,6 @@ wsl --shutdown
   - **wsl:** The WSL command-line tool.
   - **--shutdown:** Shuts down WSL.
 - **Expected output or result:** All WSL instances are terminated.
-
 <p>&nbsp;</p>
 
 ### 7.2 Launch WSL
@@ -351,7 +347,6 @@ wsl -d Ubuntu
   - **wsl:** The WSL command-line tool.
   - **-d Ubuntu:** Specifies the distribution to launch.
 - **Expected output or result:** The Ubuntu distribution starts, and you are logged in as ***"devuser"***.
-
 <p>&nbsp;</p>
 
 ### 7.3 Verify Home Directory
@@ -371,7 +366,6 @@ source /home/devuser/.bashrc
   - **echo "cd ~" >> /home/devuser/.bashrc:**  Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
   - **source /home/devuser/.bashrc:** Reloads the ***/home/devuser/.bashrc*** file.
 - **Expected output or result:**  The terminal will start in the home directory for the respective user.
-
 <p>&nbsp;</p>
 
 ### 7.4 Test Read-Only Mount
