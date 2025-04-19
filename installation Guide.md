@@ -54,6 +54,8 @@ This guide shows you how to install and configure **WSL 2** so that **all** Lin
 
 > ⚠️ **Important:** All commands in this guide must be executed in **PowerShell running as Administrator**.
 
+---
+
 ## 4. Step‑by‑Step Setup Guide
 
 ### 4.1 Folder Preparation
