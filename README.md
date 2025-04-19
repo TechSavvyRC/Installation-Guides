@@ -1,7 +1,4 @@
-# System‑Drive Isolation for WSL: ReadMe
-
-
-## Table of Contents
+# Table of Contents
 
 1. [Introduction](#1-introduction)  
 2. [Pros & Cons Analysis](#2-pros--cons-analysis)  
