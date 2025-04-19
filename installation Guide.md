@@ -3,7 +3,7 @@
 <details>
 <summary>📑 Table of Contents</summary>
 
-1. [Introduction](#introduction)  
+1. [Introduction](#1.-introduction)  
 2. [Pros & Cons Analysis](#pros--cons-analysis)  
 3. [Prerequisites](#prerequisites)  
 4. [Step‑by‑Step Setup Guide](#step-by-step-setup-guide)  
