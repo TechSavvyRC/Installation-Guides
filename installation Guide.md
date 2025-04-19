@@ -98,7 +98,7 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
   - **-ItemType Directory:** Specifies that a directory should be created.
   - **-Path "E:\appData\...":** Defines the full path where the new directory will be created.
   - **-Force:** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
-- **Expected output or result:** The successful creation of the specified directory structure on the **E:** drive.
+- **Expected output:** The successful creation of the specified directory structure on the **E:** drive.
 <p>&nbsp;</p>
 
 ### 4.2 Enable Windows Features
@@ -117,7 +117,7 @@ Restart-Computer -Force
   - **/featurename:** Microsoft-Windows-Subsystem-Linux and /featurename:VirtualMachinePlatform: The names of the features to enable.
   - **/all:** Enables all parent and dependent features.
   - **/norestart:** Prevents an automatic reboot after the command completes.
-- **Expected output or result:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
+- **Expected output:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
 <p>&nbsp;</p>
 
 ### 4.3 Install WSL & Default Distro(Ubuntu)
@@ -129,7 +129,7 @@ wsl --install
 - **Breakdown of parameters and arguments:**
   - **wsl: The command-line tool for managing WSL.
   - **--install: Installs WSL and the default distribution.
-- **Expected output or result:** Output similar to the following:
+- **Expected output:** Output similar to the following:
 ```powershell
 Downloading: Windows Subsystem for Linux 2.4.13
 Installing: Windows Subsystem for Linux 2.4.13
@@ -156,7 +156,7 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
   - **--shutdown:** No specific arguments.
   - **--export <DistributionName> <ExportFilePath>:** Specifies the distribution to export and the path for the resulting TAR file.
   - **Test-Path <Path>:** Checks if a file or directory exists at the given path.
-- **Expected output or result:** If successful, ***Test-Path*** will return **True**.
+- **Expected output:** If successful, ***Test-Path*** will return **True**.
 <p>&nbsp;</p>
 
 ### 4.5 Unregister the Original Distro
@@ -167,7 +167,7 @@ wsl --unregister Ubuntu
 - **Purpose of the command:** Removes the registration of the specified WSL distribution.
 - **Breakdown of parameters and arguments:**
   - **--unregister <DistributionName>:** Specifies the distribution to unregister.
-- **Expected output or result:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
+- **Expected output:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
 <p>&nbsp;</p>
 
 ### 4.6 Import to Custom Location on E
@@ -185,7 +185,7 @@ Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
   - **Remove-Item:** PowerShell cmdlet to delete files or directories.
   - **-Path:** Specifies the path to the item to be removed.
   - **-Force:** Deletes the item without prompting.
-- **Expected output or result:** Successful registration of the ***"Ubuntu"*** distribution at the new location.
+- **Expected output:** Successful registration of the ***"Ubuntu"*** distribution at the new location.
 <p>&nbsp;</p>
 
 ---
@@ -203,7 +203,7 @@ wsl -l -v
   - **wsl:** The WSL command-line tool.
   - **-l:** Lists distributions.
   - **-v:** Displays version information.
-- **Expected output or result:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
+- **Expected output:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
 <p>&nbsp;</p>
 
 ### 5.2 Confirm the BasePath registry entry
@@ -218,7 +218,7 @@ This command retrieves the installation path from the Windows Registry to ensure
   - **Get-ChildItem HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss:** Gets all sub-items (distributions) under the Lxss registry key.
   - **ForEach-Object { Get-ItemProperty $_.PSPath }:** For each distribution, gets its properties, including the path.
   - **Select-Object DistributionName, BasePath:** Selects and displays the distribution name and its base path.
-- **Expected output or result:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
+- **Expected output:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
 <p>&nbsp;</p>
 
 ### 5.3 Virtual Hard Disk File
@@ -230,7 +230,7 @@ Test-Path "E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx"
 - **Breakdown of parameters and arguments:**
   - **Test-Path:** PowerShell cmdlet to check if a file or directory exists.
   - **"E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx":** The path to the virtual hard disk file.
-- **Expected output or result:** ***"True***" if the file exists, ***"False"*** otherwise.
+- **Expected output:** ***"True***" if the file exists, ***"False"*** otherwise.
 <p>&nbsp;</p>
 
 ---
@@ -254,7 +254,7 @@ usermod -aG sudo devuser
   - **usermod -aG sudo devuser:** Modifies the user "devuser" to add it to the ***"sudo"*** group.
   - **usermod:** Modifies a user account.
   - **-aG sudo:** Adds the user to the ***"sudo"*** group.
-- **Expected output or result:** A root user shell within the Ubuntu distribution. A new user account named ***"devuser"*** that can execute commands with sudo.
+- **Expected output:** A root user shell within the Ubuntu distribution. A new user account named ***"devuser"*** that can execute commands with sudo.
 <p>&nbsp;</p>
 
 ### 6.2 Shell Prompt & Startup
@@ -266,7 +266,7 @@ cd ~
 - **Breakdown of parameters and arguments:**
   - **echo "cd ~" >> /root/.bashrc:** Adds the command ***cd ~*** to the end of the ***/root/.bashrc*** file.
   - **echo "cd ~" >> /home/devuser/.bashrc:** Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
-- **Expected output or result:** The terminal will start in the home directory for the respective user.
+- **Expected output:** The terminal will start in the home directory for the respective user.
 <p>&nbsp;</p>
 
 ### 6.3 Drive Mount Control
@@ -314,7 +314,7 @@ C:  /mnt/c  drvfs  defaults,ro  0  0
     - **/mnt/c:** The mount point.
     - **drvfs:** The file system type.
     - **defaults,ro:** Mount options, including read-only.
-- **Expected output or result:** The ***C:*** drive mounted as ***read-only*** in WSL.
+- **Expected output:** The ***C:*** drive mounted as ***read-only*** in WSL.
 <p>&nbsp;</p>
 
 ---
@@ -333,7 +333,7 @@ wsl --shutdown
 - **Breakdown of parameters and arguments:**
   - **wsl:** The WSL command-line tool.
   - **--shutdown:** Shuts down WSL.
-- **Expected output or result:** All WSL instances are terminated.
+- **Expected output:** All WSL instances are terminated.
 <p>&nbsp;</p>
 
 ### 7.2 Launch WSL
@@ -346,7 +346,7 @@ wsl -d Ubuntu
 - **Breakdown of parameters and arguments:**
   - **wsl:** The WSL command-line tool.
   - **-d Ubuntu:** Specifies the distribution to launch.
-- **Expected output or result:** The Ubuntu distribution starts, and you are logged in as ***"devuser"***.
+- **Expected output:** The Ubuntu distribution starts, and you are logged in as ***"devuser"***.
 <p>&nbsp;</p>
 
 ### 7.3 Verify Home Directory
@@ -365,7 +365,7 @@ source /home/devuser/.bashrc
 - **Breakdown of parameters and arguments:**
   - **echo "cd ~" >> /home/devuser/.bashrc:**  Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
   - **source /home/devuser/.bashrc:** Reloads the ***/home/devuser/.bashrc*** file.
-- **Expected output or result:**  The terminal will start in the home directory for the respective user.
+- **Expected output:**  The terminal will start in the home directory for the respective user.
 <p>&nbsp;</p>
 
 ### 7.4 Test Read-Only Mount
@@ -377,6 +377,6 @@ touch /mnt/c/Windows/System32/test_wsl.txt
 - **Purpose of the command:** Tests the read-only mount of the ***C:*** drive.
 - **Breakdown of parameters and arguments:**
   - **touch /mnt/c/Windows/System32/test_wsl.txt:** Attempts to create a file at the specified path.
-- **Expected output or result:** An error message indicating a ***"Read-only file system"***.
+- **Expected output:** An error message indicating a ***"Read-only file system"***.
 
 ---
