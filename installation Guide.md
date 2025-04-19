@@ -25,21 +25,21 @@
 
 ---
 
-## Introduction
-This guide shows you how to install and configure **WSL 2** so that **all** Linux data resides on a separate drive (e.g. `E:\appData\WSL`) while your **C:** drive remains read‑only and uncluttered. You will also learn best practices for organizing a GitHub repository and publishing via GitHub Pages, complete with a professional Markdown template.
+## 1. Introduction
+This guide shows you how to install and configure **WSL 2** so that **all** Linux data resides on a separate drive (e.g. `E:\appData\WSL`) while your **C:** drive remains read‑only and uncluttered.
 
 ---
 
-## Pros & Cons Analysis
+## 2. Pros & Cons Analysis
 
-### Advantages
+### 2.1 Advantages
 - **System protection:** Isolating distro files on **E:** prevents accidental writes to **C:**, safeguarding Windows system files.  
 - **Simplified backups:** Snapshot or copy `E:\appData\WSL` directly without digging through user profiles.  
 - **Resource isolation:** Large data sets no longer bloat your system drive.  
 - **Near‑native performance:** ext4 VHDX on a dedicated drive approaches native I/O speeds under WSL 2.  
 - **Clean separation:** The ext4.vhdx is by default inaccessible to Windows tools, reducing cross‑contamination risk.
 
-### Disadvantages
+### 2.2 Disadvantages
 - **Setup complexity:** Multiple PowerShell and Linux commands increase the learning curve.  
 - **Maintenance overhead:** Major WSL or distro updates may require re‑export/import or config tweaks.  
 - **I/O caveats:** DrvFs mounts on non‑system drives can be slower under heavy load.  
@@ -48,7 +48,7 @@ This guide shows you how to install and configure **WSL 2** so that **all** Lin
 
 ---
 
-## Prerequisites
+## 3. Prerequisites
 - **Windows Version:** Windows 10 1903+ or Windows 11  
 - **Admin Access:** PowerShell **as Administrator**  
 - **Drive Space:** ≥ 10 GB free on **E:** (or your chosen drive)  
@@ -56,23 +56,19 @@ This guide shows you how to install and configure **WSL 2** so that **all** Lin
 
 ---
 
-## Step‑by‑Step Setup Guide
+## 4. Step‑by‑Step Setup Guide
 
-### Folder Preparation
+### 4.1 Folder Preparation
 Create the required directories on **E:**:
 ```powershell
-New-Item -ItemType Directory `
-  -Path "E:\appData\WSL\Ubuntu\Rootfs" `
-  -Force
+New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
 ```
 
 ### Enable Windows Features
 Enable WSL and the Virtual Machine Platform:
 ```powershell
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux `
-  /all /norestart
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform `
-  /all /norestart
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 Restart-Computer -Force
 ```
 
