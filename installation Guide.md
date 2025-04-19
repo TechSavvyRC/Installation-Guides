@@ -1,14 +1,14 @@
 # Table of Contents
-
-1. [Introduction](#1-introduction)  
-2. [Pros & Cons Analysis](#2-pros--cons-analysis)  
-3. [Prerequisites](#3-prerequisites)  
-4. [Installation Guide](#4-installation-guide)  
-   1. [Prepare Custom Folders](#41-prepare-custom-folders)  
-   2. [Enable Windows Features](#42-enable-windows-features)  
-   3. [Install WSL & Default Distro (Ubuntu)](#4-3-install-wsl--default-distro-ubuntu)  
-   4. [Export the Installed Distro](#44-export-the-installed-distro)  
-   5. [Unregister the Original Distro](#45-unregister-the-original-distro)  
+<br>
+1. [Introduction](#1-introduction)
+2. [Pros & Cons Analysis](#2-pros--cons-analysis)
+3. [Prerequisites](#3-prerequisites)
+4. [Installation Guide](#4-installation-guide)
+   1. [Prepare Custom Folders](#41-prepare-custom-folders)
+   2. [Enable Windows Features](#42-enable-windows-features)
+   3. [Install WSL & Default Distro (Ubuntu)](#4-3-install-wsl--default-distro-ubuntu)
+   4. [Export the Installed Distro](#44-export-the-installed-distro)
+   5. [Unregister the Original Distro](#45-unregister-the-original-distro)
    6. [Import to Custom Location on E](#46-import-to-custom-location-on-e)
 5. [Verification Steps](#5-verification-steps)
    1. [List installed distros and versions](#51-list-installed-distros-and-versions)
@@ -25,9 +25,8 @@
    3. [Verify Home Directory](#73-verify-home-directory)
    4. [Test Read-Only Mount](#74-test-read-only-mount)
 
-
 ---
-
+<br>
 ## 1. Introduction
 
 Windows Subsystem for Linux (WSL) enables developers and system administrators to run a full Linux environment directly within Windows — without the need for dual-booting or using a VM. WSL 2, the latest version, utilizes a lightweight virtual machine with a real Linux kernel, offering significant performance and compatibility improvements over WSL 1.
@@ -52,37 +51,39 @@ By the end of this guide, you will have:
 This setup is ideal for power users, developers, or anyone who wants a robust and professional-grade WSL environment.
 
 ---
-
+<br>
 ## 2. Pros & Cons Analysis
 
 ### 2.1 Advantages
-- **System protection:** Isolating distro files on **E:** prevents accidental writes to **C:**, safeguarding Windows system files.  
-- **Simplified backups:** Snapshot or copy `E:\appData\WSL` directly without digging through user profiles.  
-- **Resource isolation:** Large data sets no longer bloat your system drive.  
-- **Near‑native performance:** ext4 VHDX on a dedicated drive approaches native I/O speeds under WSL 2.  
+- **System protection:** Isolating distro files on **E:** prevents accidental writes to **C:**, safeguarding Windows system files.
+- **Simplified backups:** Snapshot or copy `E:\appData\WSL` directly without digging through user profiles.
+- **Resource isolation:** Large data sets no longer bloat your system drive.
+- **Near‑native performance:** ext4 VHDX on a dedicated drive approaches native I/O speeds under WSL 2.
 - **Clean separation:** The ext4.vhdx is by default inaccessible to Windows tools, reducing cross‑contamination risk.
-
+<br>
+<br>
 ### 2.2 Disadvantages
-- **Setup complexity:** Multiple PowerShell and Linux commands increase the learning curve.  
-- **Maintenance overhead:** Major WSL or distro updates may require re‑export/import or config tweaks.  
-- **I/O caveats:** DrvFs mounts on non‑system drives can be slower under heavy load.  
-- **Limited Windows scanning:** Antivirus or Windows tooling won’t inspect ext4.vhdx.  
+- **Setup complexity:** Multiple PowerShell and Linux commands increase the learning curve.
+- **Maintenance overhead:** Major WSL or distro updates may require re‑export/import or config tweaks.
+- **I/O caveats:** DrvFs mounts on non‑system drives can be slower under heavy load.
+- **Limited Windows scanning:** Antivirus or Windows tooling won’t inspect ext4.vhdx.
 - **Portability:** Custom drive mappings may not transfer seamlessly to other machines.
 
 ---
-
+<br>
 ## 3. Prerequisites
-- **Windows Version:** Windows 10 1903+ or Windows 11  
-- **Admin Access:** PowerShell **as Administrator**  
-- **Drive Space:** ≥ 10 GB free on **E:** (or your chosen drive)  
+- **Windows Version:** Windows 10 1903+ or Windows 11
+- **Admin Access:** PowerShell **as Administrator**
+- **Drive Space:** ≥ 10 GB free on **E:** (or your chosen drive)
 - **Internet:** Required for kernel and distro downloads
-
+<br>
+<br>
 ---
 
 > ⚠️ **Important:** All commands in this guide must be executed in **PowerShell running as Administrator** ⚠️
 
 ---
-
+<br>
 ## 4. Installation Guide
 
 ### 4.1 Prepare Custom Folders
@@ -97,8 +98,8 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
   - **-Path "E:\appData\...":** Defines the full path where the new directory will be created.
   - **-Force:** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
 - **Expected output or result:** The successful creation of the specified directory structure on the **E:** drive.
-
-
+<br>
+<br>
 ### 4.2 Enable Windows Features
 Still in an administrator PowerShell session, run the following commands to enable the WSL and Virtual Machine Platform features.
 ```powershell
@@ -116,8 +117,8 @@ Restart-Computer -Force
   - **/all:** Enables all parent and dependent features.
   - **/norestart:** Prevents an automatic reboot after the command completes.
 - **Expected output or result:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
-
-
+<br>
+<br>
 ### 4.3 Install WSL & Default Distro(Ubuntu)
 After rebooting, open a new PowerShell window and run the following command to install WSL with the default Ubuntu distribution.
 ```powershell
@@ -135,10 +136,10 @@ Windows Subsystem for Linux 2.4.13 has been installed.
 The operation completed successfully.
 Downloading: Ubuntu
 Installing: Ubuntu
-Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu' 
+Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
 ```
-
-
+<br>
+<br>
 ### 4.4 Export the Installed Distro
 Before unregistering the default installation, shut down all running WSL instances and export the Ubuntu distribution to a TAR archive on your **E:** drive.
 ```powershell
@@ -155,8 +156,8 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
   - **--export <DistributionName> <ExportFilePath>:** Specifies the distribution to export and the path for the resulting TAR file.
   - **Test-Path <Path>:** Checks if a file or directory exists at the given path.
 - **Expected output or result:** If successful, ***Test-Path*** will return **True**.
-
-
+<br>
+<br>
 ### 4.5 Unregister the Original Distro
 Now, unregister the default Ubuntu installation. This removes the registration but leaves the exported TAR file intact.
 ```powershell
@@ -166,8 +167,8 @@ wsl --unregister Ubuntu
 - **Breakdown of parameters and arguments:**
   - **--unregister <DistributionName>:** Specifies the distribution to unregister.
 - **Expected output or result:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
-
-
+<br>
+<br>
 ### 4.6 Import to Custom Location on E
 Import the exported TAR archive to the custom location you created on the E: drive. This command registers a new WSL instance pointing to the specified directory.
 ```powershell
@@ -175,7 +176,7 @@ wsl --import Ubuntu "E:\appData\WSL\Ubuntu\Rootfs" "E:\appData\WSL\Ubuntu.tar" -
 Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
 ```
 - **Purpose of the command:**
-  - **wsl --import Ubuntu "E:\appData\WSL\Ubuntu\Rootfs" "E:\appData\WSL\Ubuntu.tar" --version 2:** Imports the distribution from the TAR file to the specified directory, registering it with the name "Ubuntu" and using WSL version 
+  - **wsl --import Ubuntu "E:\appData\WSL\Ubuntu\Rootfs" "E:\appData\WSL\Ubuntu.tar" --version 2:** Imports the distribution from the TAR file to the specified directory, registering it with the name "Ubuntu" and using WSL version
   - **Remove-Item -Path "E:\appData\WSL\Ubuntu.tar" -Force:** Deletes the temporary TAR archive.
 - **Breakdown of parameters and arguments:
   - **--import <NewDistributionName> <InstallLocation> <TarFilePath>:** Specifies the name for the new distribution, the directory where the file system will be stored, and the path to the TAR archive.
@@ -185,9 +186,8 @@ Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
   - **-Force:** Deletes the item without prompting.
 - **Expected output or result:** Successful registration of the ***"Ubuntu"*** distribution at the new location.
 
-
 ---
-
+<br>
 ## 5. Verification Steps
 After completing the installation and import process, it's crucial to verify that WSL is correctly set up and functioning as expected in the new location.
 
@@ -202,8 +202,8 @@ wsl -l -v
   - **-l:** Lists distributions.
   - **-v:** Displays version information.
 - **Expected output or result:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
-
-
+<br>
+<br>
 ### 5.2 Confirm the BasePath registry entry
 This command retrieves the installation path from the Windows Registry to ensure it points to the new location.
 ```powershell
@@ -217,8 +217,8 @@ This command retrieves the installation path from the Windows Registry to ensure
   - **ForEach-Object { Get-ItemProperty $_.PSPath }:** For each distribution, gets its properties, including the path.
   - **Select-Object DistributionName, BasePath:** Selects and displays the distribution name and its base path.
 - **Expected output or result:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
-
-
+<br>
+<br>
 ### 5.3 Virtual Hard Disk File
 This command checks for the existence of the virtual hard disk file in the new location, confirming that the distribution's files are in the correct place.
 ```bash
@@ -230,9 +230,8 @@ Test-Path "E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx"
   - **"E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx":** The path to the virtual hard disk file.
 - **Expected output or result:** ***"True***" if the file exists, ***"False"*** otherwise.
 
-
 ---
-
+<br>
 ## 6. Post‑Installation Configuration
 After verifying the installation, we'll proceed to configure the Ubuntu environment for enhanced security, control, and usability.
 
@@ -253,8 +252,8 @@ usermod -aG sudo devuser
   - **usermod:** Modifies a user account.
   - **-aG sudo:** Adds the user to the ***"sudo"*** group.
 - **Expected output or result:** A root user shell within the Ubuntu distribution. A new user account named ***"devuser"*** that can execute commands with sudo.
-
-
+<br>
+<br>
 ### 6.2 Shell Prompt & Startup
 Ensure each shell session starts in the user’s home and uses a clean prompt. These commands modify the ***.bashrc*** files to ensure the terminal starts in the user's home directory.
 ```bash
@@ -265,8 +264,8 @@ cd ~
   - **echo "cd ~" >> /root/.bashrc:** Adds the command ***cd ~*** to the end of the ***/root/.bashrc*** file.
   - **echo "cd ~" >> /home/devuser/.bashrc:** Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
 - **Expected output or result:** The terminal will start in the home directory for the respective user.
-
-
+<br>
+<br>
 ### 6.3 Drive Mount Control
 This command edits the wsl.conf file to apply specific WSL settings, including enabling systemd, disabling automatic drive mounting, and setting the default user.
 ```bash
@@ -296,8 +295,8 @@ default = devuser         # set your non-root default user
     - **[interop] enabled = false:** Disables launching Windows binaries from WSL.
     - **[interop] appendWindowsPath = false:** Prevents Windows paths from being added to the WSL environment's PATH variable.
     - **[user] default = devuser:** Sets the default user to ***"devuser"***.
-
-
+<br>
+<br>
 ### 6.4 Mount C Drive Read-only
 To enhance security and prevent accidental modification of the Windows system drive, this command mounts it in read-only mode. If you only want to mount certain drives or mount them read‑only, disable automount globally, then in ***/etc/fstab*** add entries as mentioned below.
 ```bash
@@ -314,7 +313,8 @@ C:  /mnt/c  drvfs  defaults,ro  0  0
     - **defaults,ro:** Mount options, including read-only.
 - **Expected output or result:** The ***C:*** drive mounted as ***read-only*** in WSL.
 
-
+---
+<br>
 ## 7. Final Verification
 Finally, after configuring the Ubuntu environment, we need to restart WSL and verify that all the changes have been applied correctly.
 
@@ -330,8 +330,8 @@ wsl --shutdown
   - **wsl:** The WSL command-line tool.
   - **--shutdown:** Shuts down WSL.
 - **Expected output or result:** All WSL instances are terminated.
-
-
+<br>
+<br>
 ### 7.2 Launch WSL
 This command launches the Ubuntu distribution, which should now log in as the default user, as configured in ***/etc/wsl.conf***.
 ```bash
@@ -343,8 +343,8 @@ wsl -d Ubuntu
   - **wsl:** The WSL command-line tool.
   - **-d Ubuntu:** Specifies the distribution to launch.
 - **Expected output or result:** The Ubuntu distribution starts, and you are logged in as ***"devuser"***.
-
-
+<br>
+<br>
 ### 7.3 Verify Home Directory
 This command ensures that the terminal starts in the user's home directory
 ```bash
@@ -362,8 +362,8 @@ source /home/devuser/.bashrc
   - **echo "cd ~" >> /home/devuser/.bashrc:**  Adds the command ***cd ~*** to the end of the ***/home/devuser/.bashrc*** file.
   - **source /home/devuser/.bashrc:** Reloads the ***/home/devuser/.bashrc*** file.
 - **Expected output or result:**  The terminal will start in the home directory for the respective user.
-
-
+<br>
+<br>
 ### 7.4 Test Read-Only Mount
 Finally, this command attempts to create a file on the ***C:*** drive to verify that the read-only mount configuration was successful.
 ```bash
