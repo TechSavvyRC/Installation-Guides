@@ -52,17 +52,24 @@ This guide shows you how to install and configure **WSL 2** so that **all** Lin
 
 ---
 
-> ⚠️ **Important:** All commands in this guide must be executed in **PowerShell running as Administrator**.
+> ⚠️ **Important:** All commands in this guide must be executed in **PowerShell running as Administrator** ⚠️
 
 ---
 
 ## 4. Step‑by‑Step Setup Guide
 
-### 4.1 Folder Preparation
-Create the required directories on **E:**:
+### 4.1 Prepare Custom Folders
+Open PowerShell as an administrator and execute the following command to create the necessary directory structure on your desired non-system drive (replace **E:** with your preferred drive letter if needed):
 ```powershell
 New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
 ```
+- Purpose of the command: These commands create a nested directory structure where the WSL distribution files will reside.
+- Breakdown of parameters and arguments:
+  - New-Item: PowerShell cmdlet to create new items (like directories).
+  - -ItemType Directory: Specifies that a directory should be created.
+  - -Path "E:\appData\...": Defines the full path where the new directory will be created.
+  - -Force: If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
+
 
 ### 4.2 Enable Windows Features
 Enable WSL and the Virtual Machine Platform:
