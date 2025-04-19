@@ -53,6 +53,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 
 ---
 <p>&nbsp;</p>
+
 ## 2. Pros & Cons Analysis
 
 ### 2.1 Advantages
@@ -63,6 +64,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Clean separation:** The ext4.vhdx is by default inaccessible to Windows tools, reducing cross‑contamination risk.
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 2.2 Disadvantages
 - **Setup complexity:** Multiple PowerShell and Linux commands increase the learning curve.
 - **Maintenance overhead:** Major WSL or distro updates may require re‑export/import or config tweaks.
@@ -72,6 +74,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 
 ---
 <p>&nbsp;</p>
+
 ## 3. Prerequisites
 - **Windows Version:** Windows 10 1903+ or Windows 11
 - **Admin Access:** PowerShell **as Administrator**
@@ -79,12 +82,14 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 - **Internet:** Required for kernel and distro downloads
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ---
 
 > ⚠️ **Important:** All commands in this guide must be executed in **PowerShell running as Administrator** ⚠️
 
 ---
 <p>&nbsp;</p>
+
 ## 4. Installation Guide
 
 ### 4.1 Prepare Custom Folders
@@ -101,6 +106,7 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
 - **Expected output or result:** The successful creation of the specified directory structure on the **E:** drive.
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 4.2 Enable Windows Features
 Still in an administrator PowerShell session, run the following commands to enable the WSL and Virtual Machine Platform features.
 ```powershell
@@ -120,6 +126,7 @@ Restart-Computer -Force
 - **Expected output or result:** *"The operation completed successfully"* for both commands. You will then need to manually reboot your computer.
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 4.3 Install WSL & Default Distro(Ubuntu)
 After rebooting, open a new PowerShell window and run the following command to install WSL with the default Ubuntu distribution.
 ```powershell
@@ -141,6 +148,7 @@ Distribution successfully installed. It can be launched via 'wsl.exe -d Ubuntu'
 ```
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 4.4 Export the Installed Distro
 Before unregistering the default installation, shut down all running WSL instances and export the Ubuntu distribution to a TAR archive on your **E:** drive.
 ```powershell
@@ -159,6 +167,7 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
 - **Expected output or result:** If successful, ***Test-Path*** will return **True**.
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 4.5 Unregister the Original Distro
 Now, unregister the default Ubuntu installation. This removes the registration but leaves the exported TAR file intact.
 ```powershell
@@ -170,6 +179,7 @@ wsl --unregister Ubuntu
 - **Expected output or result:** ***"Unregistering."*** followed by ***"The operation completed successfully."***
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 4.6 Import to Custom Location on E
 Import the exported TAR archive to the custom location you created on the E: drive. This command registers a new WSL instance pointing to the specified directory.
 ```powershell
@@ -189,6 +199,7 @@ Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
 
 ---
 <p>&nbsp;</p>
+
 ## 5. Verification Steps
 After completing the installation and import process, it's crucial to verify that WSL is correctly set up and functioning as expected in the new location.
 
@@ -205,6 +216,7 @@ wsl -l -v
 - **Expected output or result:** A list of WSL distributions, including ***"Ubuntu"***, along with its version.
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 5.2 Confirm the BasePath registry entry
 This command retrieves the installation path from the Windows Registry to ensure it points to the new location.
 ```powershell
@@ -220,6 +232,7 @@ This command retrieves the installation path from the Windows Registry to ensure
 - **Expected output or result:** A table showing the distribution name ***Ubuntu*** and its corresponding BasePath.
 <p>&nbsp;</p>
 <p>&nbsp;</p>
+
 ### 5.3 Virtual Hard Disk File
 This command checks for the existence of the virtual hard disk file in the new location, confirming that the distribution's files are in the correct place.
 ```bash
@@ -233,6 +246,7 @@ Test-Path "E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx"
 
 ---
 <p>&nbsp;</p>
+
 ## 6. Post‑Installation Configuration
 After verifying the installation, we'll proceed to configure the Ubuntu environment for enhanced security, control, and usability.
 
