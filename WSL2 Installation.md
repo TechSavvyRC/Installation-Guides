@@ -100,10 +100,10 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
 
 * **Purpose of the command:** These commands create a nested directory structure where the WSL distribution files will reside.
 * **Breakdown of parameters and arguments:**
-    * **New-Item:** PowerShell cmdlet to create new items (like directories).
-    * **-ItemType Directory:** Specifies that a directory should be created.
-    * **-Path "E:\\appData\\...":** Defines the full path where the new directory will be created.
-    * **-Force:** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
+    * **`New-Item:`** PowerShell cmdlet to create new items (like directories).
+    * **`-ItemType Directory:`** Specifies that a directory should be created.
+    * **`-Path "E:\\appData\\...":`** Defines the full path where the new directory will be created.
+    * **`-Force:`** If the directory already exists, it will be overwritten without prompting. Use with caution if you have existing data in these paths.
 * **Expected output:** The successful creation of the specified directory structure on the **E:** drive.
 
 ### 4.2 Enable Windows Features
