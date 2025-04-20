@@ -96,7 +96,7 @@ New-Item -ItemType Directory -Path "E:\appData\Docker\windows" -Force
     * `-ItemType Directory`: Specifies that you want to create a directory (folder).
     * `-Path "..."`: Defines the full path where the new directory will be created.
     * `-Force`: Creates the directory even if parent directories do not exist.
-* **Expected Output or Result:** Four new directories will be created at the specified paths if they don't already exist.
+* **Expected Output:** Four new directories will be created at the specified paths if they don't already exist.
 ---
 ### 4.2 Define Download URL
 Next, define a variable to store the download URL for the latest Docker Desktop installer.
@@ -107,7 +107,7 @@ $installerUrl = '[https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20I
 * **Parameter/Argument Breakdown:**
     * `$installerUrl`: A variable name where the string value of the URL will be stored.
     * `'...'`: Encloses the string value of the Docker Desktop installer URL.
-* **Expected Output or Result:** The variable `$installerUrl` will hold the URL of the Docker Desktop installer.
+* **Expected Output:** The variable `$installerUrl` will hold the URL of the Docker Desktop installer.
 ---
 ### 4.3 Prepare Your Downloads Folder
 Ensure a local directory exists to temporarily store the installer.
@@ -119,7 +119,7 @@ New-Item -Path $downloadDir -ItemType Directory -Force
 * **Parameter/Argument Breakdown:**
     * `$downloadDir`: A variable holding the path to your Downloads folder.
     * `New-Item -Path ... -ItemType Directory -Force`: Creates the Downloads directory if it doesn't exist.
-* **Expected Output or Result:** The `$downloadDir` variable is set, and the Downloads directory exists.
+* **Expected Output:** The `$downloadDir` variable is set, and the Downloads directory exists.
 ---
 ### 4.4 Download the Installer into Downloads
 Download the Docker Desktop installer using the URL defined earlier.
@@ -137,7 +137,7 @@ Invoke-WebRequest `
     * `-Uri $installerUrl`: Specifies the URL to download from.
     * `-OutFile $installerPath`: Defines the local path where the downloaded file will be saved.
     * `-UseBasicParsing`: Forces `Invoke-WebRequest` to use the basic parser for the response content, which can be useful in certain network environments.
-* **Expected Output or Result:** The `DockerDesktopInstaller.exe` file will be downloaded and saved in your Downloads folder.
+* **Expected Output:** The `DockerDesktopInstaller.exe` file will be downloaded and saved in your Downloads folder.
 ---
 ### 4.5 Build Argument List for Docker Desktop Installer
 Construct the arguments to be passed to the Docker Desktop installer for a custom installation.
@@ -164,7 +164,7 @@ $installArgs = @(
     * `'--hyper-v-default-data-root=...'`: Sets the custom location for the virtual hard disk used by the Hyper-V integration (if enabled).
     * `'--windows-containers-default-data-root=...'`: Sets the custom location for the data associated with Windows containers (if enabled).
     * `'--always-run-service'`: Ensures the Docker service starts automatically after installation.
-* **Expected Output or Result:** The `$installArgs` variable will contain an array of installation parameters.
+* **Expected Output:** The `$installArgs` variable will contain an array of installation parameters.
 ---
 ### 4.6 Execute Installer from Downloads
 Run the downloaded installer with the custom arguments.
@@ -180,7 +180,7 @@ Start-Process `
     * `-FilePath $installerPath`: Specifies the path to the executable file to run (the Docker Desktop installer).
     * `-ArgumentList $installArgs`: Provides the array of arguments to be passed to the installer.
     * `-Wait`: Makes the PowerShell script wait until the installer process finishes before proceeding.
-* **Expected Output or Result:** Docker Desktop will be installed in the `C:\DevOps-Tools\Docker` directory, and its data will be stored in the `E:\appData\Docker\` subdirectories. The installation will proceed silently without a GUI.
+* **Expected Output:** Docker Desktop will be installed in the `C:\DevOps-Tools\Docker` directory, and its data will be stored in the `E:\appData\Docker\` subdirectories. The installation will proceed silently without a GUI.
 ---
 ### 4.7 Update System Path
 Add the custom binary directory to your system's PATH environment variable so you can run `docker` and `docker-compose` commands from any command prompt.
@@ -193,7 +193,7 @@ setx PATH "$($Env:PATH);C:\DevOps-Tools\Docker" /M
     * `PATH`: The name of the environment variable being modified.
     * `"$($Env:PATH);C:\DevOps-Tools\Docker"`: The new value for the PATH variable. It appends the custom Docker installation directory to the existing PATH. `$Env:PATH` retrieves the current value of the PATH variable.
     * `/M`: Specifies that the environment variable should be set in the system environment (requires administrator privileges).
-* **Expected Output or Result:** The system PATH environment variable will be updated to include `C:\DevOps-Tools\Docker`. You might need to restart your command prompt or PowerShell session for the changes to take effect.
+* **Expected Output:** The system PATH environment variable will be updated to include `C:\DevOps-Tools\Docker`. You might need to restart your command prompt or PowerShell session for the changes to take effect.
 
 Verify the Docker CLI is accessible from the custom installation location:
 ```powershell
@@ -206,7 +206,7 @@ Write-Host "Docker CLI installed at: $where"
     * `(Get-Command docker).Source`: Retrieves the full path of the `docker` executable.
     * `$where`: A variable storing the path of the `docker` executable.
     * `Write-Host "..."`: Displays the value of the `$where` variable in the PowerShell console.
-* **Expected Output or Result:** The output should display `Docker CLI installed at: C:\DevOps-Tools\Docker\docker.exe` (or your chosen custom installation path).
+* **Expected Output:** The output should display `Docker CLI installed at: C:\DevOps-Tools\Docker\docker.exe` (or your chosen custom installation path).
 ---
 ### 4.8 Restart Machine
 A system restart is often required for all Docker Desktop components and environment variable changes to take effect properly.
@@ -217,7 +217,7 @@ Restart-Computer -Force
 * **Parameter/Argument Breakdown:**
     * `Restart-Computer`: PowerShell cmdlet to restart the local computer.
     * `-Force`: Restarts the computer without prompting the user to save unsaved work. Use with caution.
-* **Expected Output or Result:** Your computer will restart.
+* **Expected Output:** Your computer will restart.
 <p>&nbsp;</p>
 
 ---
@@ -233,7 +233,7 @@ docker --version
 * **Parameter/Argument Breakdown:**
     * `docker`: The Docker CLI executable.
     * `--version`: An argument that instructs the Docker CLI to output its version information.
-* **Expected Output or Result:** You should see output similar to `Docker version <version>, build <commit>`.
+* **Expected Output:** You should see output similar to `Docker version <version>, build <commit>`.
 ---
 ### 5.2 Check Disk Image Location
 Verify that the WSL 2 disk image (if you chose WSL 2 integration) is located in your custom data root directory.
@@ -244,7 +244,7 @@ Get-ChildItem -Path "E:\appData\Docker\wsl"
 * **Parameter/Argument Breakdown:**
     * `Get-ChildItem`: PowerShell cmdlet to get the items (files and folders) in a specified location.
     * `-Path "E:\appData\Docker\wsl"`: Specifies the path to your custom WSL 2 data root directory.
-* **Expected Output or Result:** You should see files related to the WSL 2 Docker distribution, such as a `.vhdx` file (virtual hard disk). The exact filename might vary.
+* **Expected Output:** You should see files related to the WSL 2 Docker distribution, such as a `.vhdx` file (virtual hard disk). The exact filename might vary.
 <p>&nbsp;</p>
 
 ---
@@ -295,23 +295,23 @@ Once the installation is complete, you can remove the downloaded installer file 
 ```powershell
 Remove-Item -Path $installerPath -Force
 ```
-* **Purpose: This command deletes the Docker Desktop installer file that was downloaded earlier.
-* **Parameter/Argument Breakdown:
-    * `Remove-Item`: PowerShell `cmdlet` to delete files and directories.
-    * `-Path $installerPath`: Specifies the path to the installer file (which is stored in the $installerPath variable).
-    * `-Force`: Deletes the file without prompting for confirmation. Use with caution.
-* **Expected Output or Result: The `Docker Desktop Installer.exe` file will be deleted from your Downloads folder.
+* **Purpose:** This command deletes the Docker Desktop installer file that was downloaded earlier.
+* **Parameter/Argument Breakdown:**
+    * `Remove-Item`:** PowerShell `cmdlet` to delete files and directories.
+    * `-Path $installerPath`:** Specifies the path to the installer file (which is stored in the $installerPath variable).
+    * `-Force`:** Deletes the file without prompting for confirmation. Use with caution.
+* **Expected Output:** The `Docker Desktop Installer.exe` file will be deleted from your Downloads folder.
 ---
 ### 7.2 Ensure Docker Service Starts on Boot
 While the --always-run-service argument was used during installation, you can explicitly verify or set the Docker service to start automatically when your system boots.
 ```powershell
 Set-Service -Name com.docker.service -StartupType Automatic
 ```
-* **Purpose: This command configures the Docker Desktop service to start automatically whenever you start your computer.
-* **Parameter/Argument Breakdown:
-    * `Set-Service`: PowerShell `cmdlet` to manage Windows services.
-    * `-Name com.docker.service`: Specifies the name of the Docker Desktop service.
-    * `-StartupType Automatic`: Sets the startup type of the service to `Automatic`, meaning it will start during system boot.
-* **Expected Output or Result: The startup type of the com.docker.service will be set to Automatic. You can verify this using the Services management console (services.msc).
+* **Purpose:** This command configures the Docker Desktop service to start automatically whenever you start your computer.
+* **Parameter/Argument Breakdown:**
+    * `Set-Service`:** PowerShell `cmdlet` to manage Windows services.
+    * `-Name com.docker.service`:** Specifies the name of the Docker Desktop service.
+    * `-StartupType Automatic`:** Sets the startup type of the service to `Automatic`, meaning it will start during system boot.
+* **Expected Output:** The startup type of the com.docker.service will be set to Automatic. You can verify this using the Services management console (services.msc).
 
 ---
