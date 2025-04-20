@@ -297,9 +297,9 @@ Remove-Item -Path $installerPath -Force
 ```
 * **Purpose:** This command deletes the Docker Desktop installer file that was downloaded earlier.
 * **Parameter/Argument Breakdown:**
-    * `Remove-Item`:** PowerShell `cmdlet` to delete files and directories.
-    * `-Path $installerPath`:** Specifies the path to the installer file (which is stored in the $installerPath variable).
-    * `-Force`:** Deletes the file without prompting for confirmation. Use with caution.
+    * `Remove-Item`: PowerShell `cmdlet` to delete files and directories.
+    * `-Path $installerPath`: Specifies the path to the installer file (which is stored in the $installerPath variable).
+    * `-Force`: Deletes the file without prompting for confirmation. Use with caution.
 * **Expected Output:** The `Docker Desktop Installer.exe` file will be deleted from your Downloads folder.
 ---
 ### 7.2 Ensure Docker Service Starts on Boot
@@ -309,9 +309,9 @@ Set-Service -Name com.docker.service -StartupType Automatic
 ```
 * **Purpose:** This command configures the Docker Desktop service to start automatically whenever you start your computer.
 * **Parameter/Argument Breakdown:**
-    * `Set-Service`:** PowerShell `cmdlet` to manage Windows services.
-    * `-Name com.docker.service`:** Specifies the name of the Docker Desktop service.
-    * `-StartupType Automatic`:** Sets the startup type of the service to `Automatic`, meaning it will start during system boot.
+    * `Set-Service`: PowerShell `cmdlet` to manage Windows services.
+    * `-Name com.docker.service`: Specifies the name of the Docker Desktop service.
+    * `-StartupType Automatic`: Sets the startup type of the service to `Automatic`, meaning it will start during system boot.
 * **Expected Output:** The startup type of the com.docker.service will be set to Automatic. You can verify this using the Services management console (services.msc).
 
 ---
