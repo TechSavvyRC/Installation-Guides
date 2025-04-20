@@ -101,7 +101,7 @@ New-Item -ItemType Directory -Path "E:\appData\Docker\windows" -Force
 ### 4.2 Define Download URL
 Next, define a variable to store the download URL for the latest Docker Desktop installer.
 ```powershell
-$installerUrl = '[https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe)'
+$installerUrl = 'https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe'
 ```
 * **Purpose:** This line defines a variable containing the official download link for the Docker Desktop installer, ensuring you get the latest version.
 * **Parameter/Argument Breakdown:**
