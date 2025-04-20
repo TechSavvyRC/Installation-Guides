@@ -90,7 +90,7 @@ This setup is ideal for power users, developers, or anyone who wants a robust an
 
 ### 4.1 Prepare Custom Folders
 Open PowerShell as an administrator and execute the following command to create the necessary directory structure on your desired non-system drive (replace **`E:`** with your preferred drive letter if needed).
-```
+```powershell
 New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
 ```
 * **Purpose of the command:** These commands create a nested directory structure where the WSL distribution files will reside.
@@ -103,7 +103,7 @@ New-Item -ItemType Directory -Path "E:\appData\WSL\Ubuntu\Rootfs" -Force
 ---
 ### 4.2 Enable Windows Features
 Still in an administrator PowerShell session, run the following commands to enable the WSL and Virtual Machine Platform features.
-```
+```powershell
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
@@ -121,7 +121,7 @@ Restart-Computer -Force
 ---
 ### 4.3 Install WSL & Default Distro(Ubuntu)
 After rebooting, open a new PowerShell window and run the following command to install WSL with the default Ubuntu distribution.
-```
+```powershell
 wsl --install
 ```
 * **Purpose of the command:** This command downloads and installs the WSL core components and the default Linux distribution (currently Ubuntu).
@@ -142,7 +142,7 @@ wsl --install
 ---
 ### 4.4 Export the Installed Distro
 Before unregistering the default installation, shut down all running WSL instances and export the Ubuntu distribution to a TAR archive on your **`E:`** drive.
-```
+```powershell
 wsl --shutdown
 wsl --export Ubuntu E:\appData\WSL\Ubuntu.tar
 Test-Path "E:\appData\WSL\Ubuntu.tar"
@@ -159,7 +159,7 @@ Test-Path "E:\appData\WSL\Ubuntu.tar"
 ---
 ### 4.5 Unregister the Original Distro
 Now, unregister the default Ubuntu installation. This removes the registration but leaves the exported TAR file intact.
-```
+```powershell
 wsl --unregister Ubuntu
 ```
 * **Purpose of the command:** Removes the registration of the specified WSL distribution.
@@ -169,7 +169,7 @@ wsl --unregister Ubuntu
 ---
 ### 4.6 Import to Custom Location on E
 Import the exported TAR archive to the custom location you created on the E: drive. This command registers a new WSL instance pointing to the specified directory.
-```
+```powershell
 wsl --import Ubuntu "E:\appData\WSL\Ubuntu\Rootfs" "E:\appData\WSL\Ubuntu.tar" --version 2
 Remove-Item "E:\appData\WSL\Ubuntu\Ubuntu.tar" -Force
 ```
@@ -191,7 +191,7 @@ After completing the installation and import process, it's crucial to verify tha
 
 ### 5.1 List installed distros and versions
 To confirm the installation, this command lists all installed WSL distributions and their versions.
-```
+```powershell
 wsl -l -v
 ```
 * **Purpose of the command:** Displays installed WSL distributions.
@@ -203,7 +203,7 @@ wsl -l -v
 ---
 ### 5.2 Confirm the BasePath registry entry
 This command retrieves the installation path from the Windows Registry to ensure it points to the new location.
-```
+```powershell
 (Get-ChildItem HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss |
   ForEach-Object { Get-ItemProperty $_.PSPath }) |
   Select-Object DistributionName, BasePath
@@ -217,7 +217,7 @@ This command retrieves the installation path from the Windows Registry to ensure
 ---
 ### 5.3 Virtual Hard Disk File
 This command checks for the existence of the virtual hard disk file in the new location, confirming that the distribution's files are in the correct place.
-```
+```powershell
 Test-Path "E:\appData\WSL\Ubuntu\Rootfs\ext4.vhdx"
 ```
 * **Purpose of the command:** Verifies the existence of the virtual hard disk.
@@ -233,7 +233,7 @@ After verifying the installation, we'll proceed to configure the Ubuntu environm
 
 ### 6.1 User Management
 To perform initial setup, this command logs into the Ubuntu distribution as the root user. This command logs into the Ubuntu distribution as the root user to allow for initial configuration.
-```
+```powershell
 wsl -d Ubuntu -u root
 adduser devuser
 usermod -aG sudo devuser
@@ -251,7 +251,7 @@ usermod -aG sudo devuser
 ---
 ### 6.2 Shell Prompt & Startup
 Ensure each shell session starts in the user’s home and uses a clean prompt. These commands modify the ***`.bashrc`*** files to ensure the terminal starts in the user's home directory.
-```
+```bash
 cd ~
 ```
 * **Purpose of the command:** Configures the terminal to start in the user's home directory.
@@ -262,7 +262,7 @@ cd ~
 ---
 ### 6.3 Drive Mount Control
 This command edits the wsl.conf file to apply specific WSL settings, including enabling systemd, disabling automatic drive mounting, and setting the default user.
-```
+```bash
 #edit '/etc/wsl.conf' file and add below content in it.
 vi /etc/wsl.conf
 [boot]
@@ -292,7 +292,7 @@ default = devuser         # set your non-root default user
 ---
 ### 6.4 Mount C Drive Read-only
 To enhance security and prevent accidental modification of the Windows system drive, this command mounts it in read-only mode. If you only want to mount certain drives or mount them read‑only, disable automount globally, then in ***`/etc/fstab`*** add entries as mentioned below.
-```
+```bash
 vi /etc/fstab
 C:  /mnt/c  drvfs  defaults,ro  0  0
 ```
@@ -314,7 +314,7 @@ Finally, after configuring the Ubuntu environment, we need to restart WSL and ve
 
 ### 7.1 Shut Down WSL
 After making the configuration changes, this command shuts down all running WSL instances to ensure the new settings are applied upon restart.
-```
+```powershell
 #From PowerShell (Admin or normal), run:
 wsl --shutdown
 ```
@@ -326,7 +326,7 @@ wsl --shutdown
 ---
 ### 7.2 Launch WSL
 This command launches the Ubuntu distribution, which should now log in as the default user, as configured in ***`/etc/wsl.conf``***.
-```
+```powershell
 #Launch normally. It must login as `devuser` by default as mentioned under `/etc/wsl.conf` file
 wsl -d Ubuntu
 ```
@@ -338,7 +338,7 @@ wsl -d Ubuntu
 ---
 ### 7.3 Verify Home Directory
 This command ensures that the terminal starts in the user's home directory
-```
+```bash
 #Force Start in Home Directory
 #Add at the top of both ~/.bashrc (for devuser) and /root/.bashrc:
 # always jump to home on shell start
@@ -356,7 +356,7 @@ source /home/devuser/.bashrc
 ---
 ### 7.4 Test Read-Only Mount
 Finally, this command attempts to create a file on the ***`C:`*** drive to verify that the read-only mount configuration was successful.
-```
+```bash
 #Testing Read‑Only Enforcement
 touch /mnt/c/Windows/System32/test_wsl.txt
 ```
